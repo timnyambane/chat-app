@@ -39,6 +39,8 @@ body {
   overflow-y: scroll;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
@@ -47,32 +49,32 @@ body {
   border-radius: 5px;
   max-width: 70%;
   word-wrap: break-word;
-  display: flex;
 }
 
 .message.left {
   background-color: #f1f1f1;
-  align-items: flex-start;
+  align-self: flex-start;
 }
 
 .message.right {
   background-color: #007bff;
   color: white;
-  align-items: flex-end;
+  align-self: flex-end;
 }
 
 #message-form {
   display: flex;
+  gap: 4px;
 }
 
-#message-input {
+input {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-#message-form button {
+button {
   padding: 10px;
   border: none;
   background-color: #007bff;
@@ -81,6 +83,6 @@ body {
   cursor: pointer;
 }
 
-#message-form button:hover {
+button:hover {
   background-color: #0056b3;
 }

@@ -31,6 +31,17 @@ form.addEventListener('submit', (event) => {
   }
 })
 
+socket.on('load messages', (msgs) => {
+  msgs.forEach((msg) => {
+    const item = document.createElement('div')
+    item.classList.add('message')
+    item.textContent = `${msg.user}: ${msg.text}`
+    item.classList.add(msg.user === username ? 'right' : 'left')
+    messages.appendChild(item)
+  })
+  messages.scrollTop = messages.scrollHeight
+})
+
 socket.on('chat message', (msg) => {
   const item = document.createElement('div')
   item.classList.add('message')

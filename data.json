@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "user": "Tim",
+    "text": "Hello"
+  },
+  {
+    "user": "Abel",
+    "text": "Hiiii"
+  }
+]

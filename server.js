@@ -11,6 +11,7 @@ const io = socketIo(server)
 const DATA_FILE = path.join(__dirname, 'data.json')
 
 app.use(express.static('public'))
+app.use(express.json())
 
 const readMessages = () => {
   if (fs.existsSync(DATA_FILE)) {
@@ -26,20 +27,29 @@ const saveMessages = (messages) => {
 
 let messages = readMessages()
 
+// Endpoint to get messages
+app.get('/messages', (req, res) => {
+  res.json(messages)
+})
+
 io.on('connection', (socket) => {
   console.log('a user connected')
-
-  // Send existing messages to the newly connected user
-  socket.emit('load messages', messages)
 
   socket.on('disconnect', () => {
     console.log('user disconnected')
   })
 
   socket.on('chat message', (msg) => {
-    messages.push(msg)
-    saveMessages(messages)
-    io.emit('chat message', msg)
+    // Check for duplicates before adding to the messages array
+    if (
+      !messages.find(
+        (message) => message.text === msg.text && message.user === msg.user
+      )
+    ) {
+      messages.push(msg)
+      saveMessages(messages)
+      io.emit('chat message', msg)
+    }
   })
 
   socket.on('user connected', (username) => {
